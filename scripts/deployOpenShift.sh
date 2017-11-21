@@ -141,7 +141,7 @@ cat > /home/${SUDOUSER}/dockerregistry.yml <<EOF
     description: "Set registry to use Azure Storage"
   tasks:
   - name: Configure docker-registry to use Azure Storage
-    shell: oc env dc docker-registry -e REGISTRY_STORAGE=azure -e REGISTRY_STORAGE_AZURE_ACCOUNTNAME=$REGISTRYSA -e REGISTRY_STORAGE_AZURE_ACCOUNTKEY=$ACCOUNTKEY -e REGISTRY_STORAGE_AZURE_CONTAINER=registry
+    shell: oc env dc docker-registry -e REGISTRY_STORAGE=azure -e REGISTRY_STORAGE_AZURE_ACCOUNTNAME=$REGISTRYSA -e REGISTRY_STORAGE_AZURE_ACCOUNTKEY=$ACCOUNTKEY -e REGISTRY_STORAGE_AZURE_CONTAINER=registry -e REGISTRY_STORAGE_AZURE_REALM=core.cloudapi.de
 EOF
 
 fi
@@ -209,6 +209,8 @@ cat > /home/${SUDOUSER}/setup-azure-master.yml <<EOF
       dest: "{{ azure_conf }}"
       content: |
         {
+          "cloud": "AZUREGERMANCLOUD",
+          "location": "germanycentral",
           "aadClientID" : "{{ g_aadClientId }}",
           "aadClientSecret" : "{{ g_aadClientSecret }}",
           "subscriptionID" : "{{ g_subscriptionId }}",
@@ -275,6 +277,8 @@ cat > /home/${SUDOUSER}/setup-azure-node-master.yml <<EOF
       dest: "{{ azure_conf }}"
       content: |
         {
+          "cloud": "AZUREGERMANCLOUD",
+          "location": "germanycentral",
           "aadClientID" : "{{ g_aadClientId }}",
           "aadClientSecret" : "{{ g_aadClientSecret }}",
           "subscriptionID" : "{{ g_subscriptionId }}",
@@ -330,6 +334,8 @@ cat > /home/${SUDOUSER}/setup-azure-node.yml <<EOF
       dest: "{{ azure_conf }}"
       content: |
         {
+          "cloud": "AZUREGERMANCLOUD",
+          "location": "germanycentral",
           "aadClientID" : "{{ g_aadClientId }}",
           "aadClientSecret" : "{{ g_aadClientSecret }}",
           "subscriptionID" : "{{ g_subscriptionId }}",
